@@ -8,12 +8,10 @@
 
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
   View,
-  Text,
-  Button,
   TouchableHighlight
 } from 'react-native';
+import produce from 'immer';
 
 const num_rows = 10;
 const num_cols = 10;
@@ -35,7 +33,12 @@ const App: () => React$Node = () => {
       {grid.map((rows, row_index) => rows.map((col, col_index) =>
         <TouchableHighlight
           key={`${row_index}-${col_index}`}
-          onPress={() => console.log('does not work')}
+          onPress={() => {
+            const new_grid = produce(grid, grid_copy => {
+              grid_copy[row_index][col_index] = grid[row_index][col_index] ? 0 : 1;
+            });
+            setGrid(new_grid);
+          }}
         >
           <View
 
