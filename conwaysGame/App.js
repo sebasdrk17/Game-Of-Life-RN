@@ -9,7 +9,10 @@
 import React, { Component, useState } from 'react';
 import {
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  StyleSheet,
+  TouchableOpacity,
+  Text
 } from 'react-native';
 import produce from 'immer';
 
@@ -28,7 +31,9 @@ const App: () => React$Node = () => {
     <View style={{
       flex: 1,
       flexDirection: "row",
-      flexWrap: "wrap"
+      flexWrap: "wrap",
+      marginLeft: 5,
+      marginTop: 5
     }}>
       {grid.map((rows, row_index) => rows.map((col, col_index) =>
         <TouchableHighlight
@@ -44,6 +49,10 @@ const App: () => React$Node = () => {
         </TouchableHighlight>
       ))
       }
+       <TouchableOpacity style={styles.appButtonContainer}>
+          <Text style={styles.appButtonText}>Start</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };
@@ -54,12 +63,31 @@ const Cell = (props) => {
   return (
     <View
       style={{
-        width: 39.26,
-        height: 39.26,
+        width: 35,
+        height: 35,
         borderWidth: 1,
-        backgroundColor: status ? "chartreuse" : "darkslategrey"
+        backgroundColor: status ? "#70e000" : "darkslategrey"
       }}>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  // ...
+  appButtonContainer: {
+    backgroundColor: "#70e000",
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 100,
+    marginTop: 100,
+    marginLeft: 50,
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  }
+});
 export default App;
