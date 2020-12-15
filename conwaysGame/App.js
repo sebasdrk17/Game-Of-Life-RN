@@ -6,112 +6,56 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
+  Button,
+  TouchableHighlight
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const num_rows = 10;
+const num_cols = 10;
 
 const App: () => React$Node = () => {
+  const [grid, setGrid] = useState(() => {
+    const rows = [];
+    for (let i = 0; i < num_rows; i++) {
+      rows.push(Array.from(Array(num_cols), () => 0));
+    }
+    return rows;
+  });
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-              <Text style={styles.sectionDescription}>
-                Test code, only to see if everything is working correctly
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+    <View style={{
+      flex: 1,
+      flexDirection: "row",
+      flexWrap: "wrap"
+    }}>
+      {grid.map((rows, row_index) => rows.map((col, col_index) =>
+        <TouchableHighlight
+          key={`${row_index}-${col_index}`}
+          onPress={() => console.log('does not work')}
+        >
+          <View
+
+            //key, cada celula debe de tener una key, podriamos definirla en la clase
+            // no es ideal que la key sea el index de row o col
+            key={`${row_index}-${col_index}`}
+            style={{
+              width: 39.26,
+              height: 39.26,
+              borderWidth: 1,
+              //aqui tendriamos que cambiar la comparacion, en este caso si existe lo hace verde, si no, gris oscuro
+              //podriamos hacerlo referenciando al objeto con un "this" o algo similar
+              backgroundColor: grid[row_index][col_index] ? "chartreuse" : "darkslategrey"
+            }}>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+        </TouchableHighlight>
+      ))
+      }
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;
