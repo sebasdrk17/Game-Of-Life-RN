@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import {
   View,
   TouchableHighlight
@@ -40,20 +40,7 @@ const App: () => React$Node = () => {
             setGrid(new_grid);
           }}
         >
-          <View
-
-            //key, cada celula debe de tener una key, podriamos definirla en la clase
-            // no es ideal que la key sea el index de row o col
-            key={`${row_index}-${col_index}`}
-            style={{
-              width: 39.26,
-              height: 39.26,
-              borderWidth: 1,
-              //aqui tendriamos que cambiar la comparacion, en este caso si existe lo hace verde, si no, gris oscuro
-              //podriamos hacerlo referenciando al objeto con un "this" o algo similar
-              backgroundColor: grid[row_index][col_index] ? "chartreuse" : "darkslategrey"
-            }}>
-          </View>
+          <Cell row_index={row_index} col_index={col_index} grid={grid}></Cell>
         </TouchableHighlight>
       ))
       }
@@ -61,4 +48,18 @@ const App: () => React$Node = () => {
   );
 };
 
+const Cell = (props) => {
+  const grid = props.grid;
+  let status = grid[props.row_index][props.col_index];
+  return (
+    <View
+      style={{
+        width: 39.26,
+        height: 39.26,
+        borderWidth: 1,
+        backgroundColor: status ? "chartreuse" : "darkslategrey"
+      }}>
+    </View>
+  );
+}
 export default App;
