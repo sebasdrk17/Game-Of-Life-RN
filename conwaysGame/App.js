@@ -7,6 +7,7 @@
  */
 
 import React, { Component, useState } from 'react';
+import ButtonStack from "./ButtonStack";
 import {
   View,
   TouchableHighlight,
@@ -49,9 +50,13 @@ const App: () => React$Node = () => {
         </TouchableHighlight>
       ))
       }
-       <TouchableOpacity style={styles.appButtonContainer}>
-          <Text style={styles.appButtonText}>Start</Text>
-      </TouchableOpacity>
+
+    <View style={{
+      marginTop: 40,
+      marginLeft: 13
+    }}>
+      <ButtonStack/>
+    </View>
 
     </View>
   );
@@ -66,28 +71,10 @@ const Cell = (props) => {
         width: 35,
         height: 35,
         borderWidth: 1,
-        backgroundColor: status ? "#70e000" : "darkslategrey"
+        backgroundColor: status ? "#38b000" : "darkslategrey"
       }}>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  // ...
-  appButtonContainer: {
-    backgroundColor: "#70e000",
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 100,
-    marginTop: 100,
-    marginLeft: 50,
-  },
-  appButtonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
-  }
-});
 export default App;
