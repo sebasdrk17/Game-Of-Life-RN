@@ -22,13 +22,33 @@ const width = Dimensions.get("screen").width;
 const num_rows = 10;
 const num_cols = 10;
 
+const generateEmptyGrid = () => {
+  const rows = [];
+  for (let i = 0; i < num_rows; i++) {
+    rows.push(Array.from(Array(num_cols), () => 0));
+  }
+  return rows;
+}
+
+const Cell = (props) => {
+  const grid = props.grid;
+  let status = grid[props.row_index][props.col_index];
+  return (
+    <View
+      style={{
+        width: width * .10,
+        height: 35,
+        borderWidth: 1,
+        backgroundColor: status ? "#38b000" : "darkslategrey"
+      }}>
+    </View>
+  );
+}
+
+
 const App: () => React$Node = () => {
   const [grid, setGrid] = useState(() => {
-    const rows = [];
-    for (let i = 0; i < num_rows; i++) {
-      rows.push(Array.from(Array(num_cols), () => 0));
-    }
-    return rows;
+    return generateEmptyGrid();
   });
   return (
     <View style={{
@@ -46,35 +66,20 @@ const App: () => React$Node = () => {
             setGrid(new_grid);
           }}
         >
-        <Cell row_index={row_index} col_index={col_index} grid={grid}></Cell>
+          <Cell row_index={row_index} col_index={col_index} grid={grid} />
         </TouchableHighlight>
       ))
       }
 
-    <View style={{
-      marginTop: 40,
-      marginLeft: 13
-    }}>
-      <ButtonStack/>
-    </View>
+      <View style={{
+        marginTop: 40,
+        marginLeft: 13
+      }}>
+        <ButtonStack />
+      </View>
 
     </View>
   );
 };
-
-const Cell = (props) => {
-  const grid = props.grid;
-  let status = grid[props.row_index][props.col_index];
-  return (
-    <View
-      style={{
-        width: width * .10,
-        height: 35,
-        borderWidth: 1,
-        backgroundColor: status ? "#38b000" : "darkslategrey"
-      }}>
-    </View>
-  );
-}
 
 export default App;
