@@ -71,6 +71,7 @@ const App = () => {
         <TouchableOpacity
           onPress={() => {
             setStart(!start);
+            setGrid(Grid.randomPath());
           }}
           style={[
             styles.button,
@@ -96,12 +97,7 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-         style={[
-            styles.button,
-            showBtn,
-            autoGame ? {display: 'none'} : {},
-          ]}
-          
+          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}]}
           onPress={() => {
             setAutoGame(!autoGame);
             setRunning(true);
@@ -114,23 +110,18 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-             style={[
-                styles.button,
-                showBtn,
-                autoGame ? {display: 'none'} : {},
-              ]}
+          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}]}
           disabled={autoGame}
           onPress={() => setGrid(Grid.createEmptyGrid())}>
           <Text style={styles.textBtns}>Reset</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-             style={[styles.button, showStop]}
+          style={[styles.button, showStop]}
           onPress={() => {
             setRunning(false);
             running_ref.current = false;
-          }}
-          >
+          }}>
           <Text style={styles.textBtns}>Stop</Text>
         </TouchableOpacity>
       </View>
