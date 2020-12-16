@@ -36,8 +36,8 @@ function NextButton({setPagination, pagination, disabled}) {
                     borderRadius: 10,
                     backgroundColor: disabled ? "gray" : "#38b000"
                 }}
-                onPress={() => setPagination(pagination + 1)}
-                disabled={disabled}
+                // onPress={() => setPagination(pagination + 1)}
+                // disabled={disabled}
             >
                 <Text style={{color: "#fff", fontSize: 20}}>Next</Text>
             </TouchableOpacity>
@@ -69,7 +69,7 @@ function ResetButton({setPagination, pagination}) {
         >
             <TouchableOpacity 
                 style={styles.button}
-                onPress={() => setPagination(1)}
+                onPress={() => setPagination(0)}
             >
                 <Text style={{color: "#fff", fontSize: 20}}>Reset</Text>
             </TouchableOpacity>
@@ -99,7 +99,7 @@ function ContinueButton({setPagination, pagination}) {
         >
             <TouchableOpacity 
                 style={styles.button}
-                onPress={() => setPagination(2)}
+                // onPress={() => setPagination(2)}
             >
                 <Text style={{color: "#fff", fontSize: 20}}>Continue</Text>
             </TouchableOpacity>
