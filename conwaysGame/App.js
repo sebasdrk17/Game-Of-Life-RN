@@ -13,10 +13,12 @@ import {
   TouchableHighlight,
   StyleSheet,
   TouchableOpacity,
-  Text
+  Text,
+  Dimensions
 } from 'react-native';
 import produce from 'immer';
 
+const width = Dimensions.get("screen").width;
 const num_rows = 10;
 const num_cols = 10;
 
@@ -32,9 +34,7 @@ const App: () => React$Node = () => {
     <View style={{
       flex: 1,
       flexDirection: "row",
-      flexWrap: "wrap",
-      marginLeft: 5,
-      marginTop: 5
+      flexWrap: "wrap"
     }}>
       {grid.map((rows, row_index) => rows.map((col, col_index) =>
         <TouchableHighlight
@@ -46,7 +46,7 @@ const App: () => React$Node = () => {
             setGrid(new_grid);
           }}
         >
-          <Cell row_index={row_index} col_index={col_index} grid={grid}></Cell>
+        <Cell row_index={row_index} col_index={col_index} grid={grid}></Cell>
         </TouchableHighlight>
       ))
       }
@@ -68,7 +68,7 @@ const Cell = (props) => {
   return (
     <View
       style={{
-        width: 35,
+        width: width * .10,
         height: 35,
         borderWidth: 1,
         backgroundColor: status ? "#38b000" : "darkslategrey"
