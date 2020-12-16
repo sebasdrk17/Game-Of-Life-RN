@@ -37,6 +37,8 @@ const App = () => {
   });
 
   const showBtn = start ? {display: 'flex'} : {};
+  const autoBtn = autoGame ? {backgroundColor: 'gray'} : {};
+  const showStop = autoGame ? {display: 'flex'} : {};
 
   const running_ref = useRef(running);
   running_ref.current = running;
@@ -79,7 +81,7 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showBtn]}
+          style={[styles.button, showBtn, autoBtn]}
           disabled={autoGame}
           onPress={() => {
             setRunning(true);
@@ -94,7 +96,12 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showBtn]}
+         style={[
+            styles.button,
+            showBtn,
+            autoGame ? {display: 'none'} : {},
+          ]}
+          
           onPress={() => {
             setAutoGame(!autoGame);
             setRunning(true);
@@ -107,19 +114,23 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showBtn]}
+             style={[
+                styles.button,
+                showBtn,
+                autoGame ? {display: 'none'} : {},
+              ]}
           disabled={autoGame}
           onPress={() => setGrid(Grid.createEmptyGrid())}>
           <Text style={styles.textBtns}>Reset</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button]}
+             style={[styles.button, showStop]}
           onPress={() => {
             setRunning(false);
             running_ref.current = false;
           }}
-          disabled={start}>
+          >
           <Text style={styles.textBtns}>Stop</Text>
         </TouchableOpacity>
       </View>
