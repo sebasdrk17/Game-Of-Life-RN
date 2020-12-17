@@ -32,6 +32,7 @@ const App = () => {
   const [start, setStart] = useState(false);
   const [autoGame, setAutoGame] = useState(false);
   const [stopAuto, stopAutoGame] = useState(false);
+  const [changeText, setChangeText] = useState(false);
 
   const [grid, setGrid] = useState(() => {
     return Grid.createEmptyGrid();
@@ -41,7 +42,6 @@ const App = () => {
 
   const autoBtn = autoGame ? {backgroundColor: 'gray'} : {};
   const showStop = autoGame ? {display: 'flex'} : {};
-  const showLastBtns = stopAuto ? {display: 'flex'} : {};
 
   const running_ref = useRef(running);
   running_ref.current = running;
@@ -103,40 +103,39 @@ const App = () => {
           style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}]}
           onPress={() => {
             setAutoGame(!autoGame);
+            stopAutoGame(true);
             setRunning(true);
             if (!running) {
               running_ref.current = true;
               startGame();
             }
           }}>
-          <Text style={styles.textBtns}>Auto</Text>
+          <Text style={styles.textBtns}>
+            {!changeText ? 'Auto' : 'Continue'}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}, showLastBtns]}
+          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}]}
           onPress={() => {
+            stopAutoGame(false);
+            setChangeText(false);
             setGrid(Grid.createEmptyGrid());
-            setStart(!start);     
-          }
-          }>
+            setStart(!start);
+          }}>
           <Text style={styles.textBtns}>Reset</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showStop, stopAuto ? {display: 'none'} : {}]}
+          style={[styles.button, showStop, !stopAuto ? {display: 'none'} : {}]}
           onPress={() => {
-            stopAutoGame(!stopAuto);
+            setAutoGame(!autoGame);
+            stopAutoGame(false);
+            setChangeText(true);
             setRunning(false);
             running_ref.current = false;
           }}>
           <Text style={styles.textBtns}>Stop</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[ styles.button, showLastBtns, !start ? {display: 'none'} : {}]}
-          onPress={() => {
-          }}>
-          <Text style={styles.textBtns}>Continue</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -155,7 +154,7 @@ const styles = StyleSheet.create({
   btnsContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   button: {
     display: 'none',
