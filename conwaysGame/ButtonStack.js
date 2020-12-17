@@ -30,8 +30,6 @@ function NextButton({setPagination, pagination, disabled}) {
           width: width * 0.9,
           justifyContent: 'center',
           alignItems: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
           borderRadius: 10,
           backgroundColor: disabled ? 'gray' : '#38b000',
         }}
