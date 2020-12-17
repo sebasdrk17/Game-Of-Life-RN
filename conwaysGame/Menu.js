@@ -31,14 +31,17 @@ const App = () => {
   const [running, setRunning] = useState(false);
   const [start, setStart] = useState(false);
   const [autoGame, setAutoGame] = useState(false);
+  const [stopAuto, stopAutoGame] = useState(false);
 
   const [grid, setGrid] = useState(() => {
     return Grid.createEmptyGrid();
   });
 
   const showBtn = start ? {display: 'flex'} : {};
+
   const autoBtn = autoGame ? {backgroundColor: 'gray'} : {};
   const showStop = autoGame ? {display: 'flex'} : {};
+  const showLastBtns = stopAuto ? {display: 'flex'} : {};
 
   const running_ref = useRef(running);
   running_ref.current = running;
@@ -70,8 +73,8 @@ const App = () => {
         {/* start */}
         <TouchableOpacity
           onPress={() => {
-            setStart(!start);
             setGrid(Grid.randomPath());
+            setStart(!start);
           }}
           style={[
             styles.button,
@@ -110,19 +113,30 @@ const App = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}]}
-          disabled={autoGame}
-          onPress={() => setGrid(Grid.createEmptyGrid())}>
+          style={[styles.button, showBtn, autoGame ? {display: 'none'} : {}, showLastBtns]}
+          onPress={() => {
+            setGrid(Grid.createEmptyGrid());
+            setStart(!start);     
+          }
+          }>
           <Text style={styles.textBtns}>Reset</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, showStop]}
+          style={[styles.button, showStop, stopAuto ? {display: 'none'} : {}]}
           onPress={() => {
+            stopAutoGame(!stopAuto);
             setRunning(false);
             running_ref.current = false;
           }}>
           <Text style={styles.textBtns}>Stop</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[ styles.button, showLastBtns, !start ? {display: 'none'} : {}]}
+          onPress={() => {
+          }}>
+          <Text style={styles.textBtns}>Continue</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -141,9 +155,7 @@ const styles = StyleSheet.create({
   btnsContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderStyle: 'solid',
+    alignItems: 'center'
   },
   button: {
     display: 'none',
